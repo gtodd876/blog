@@ -1,16 +1,88 @@
 ---
 title: 'First post'
-description: 'Lorem ipsum dolor sit amet'
-pubDate: 'Jul 08 2022'
-heroImage: '/blog-placeholder-3.jpg'
+description: 'Kick off of my game dev blog'
+pubDate: 'May 25 2025'
+heroImage: '/src/images/post1-featured.webp'
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+Hi, this is the start of my brand spanking new game dev blog. I'm starting this blog as an online diary to document my game development progress over time. After trying out SFML, Love2d, and Pico, I have settled on using Godot for now. I'm a senior software engineer doing full stack web development for my day job and I feel like Godot has had the maximum fun factor for me. Fun factor is really important to me with this hobby since last thing I want to do with my life is to spend 100% of my waking hours coding in front of a monitor. I'm spending a lot of time learning graphic design, animation, and getting back into music production, which is perfect. Every chance that I have some free time, a brand new adventure begins.
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+## Slippery socks - my first Ludum Dare
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+My first game jam attempt was for the April 2025 [Ludum Dare](https://ldjam.com/) and I made a game called [Slippery Socks](https://volts-alpaca.itch.io/slippery-socks). It's a pixel art platformer featuring my daughter jumping around on furniture as she runs through a house. The concept was simple but charming - exactly what you want for a game jam where time is limited.
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+### Mixing pixel art with smooth fonts
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+One of the biggest challenges I faced was achieving crisp, professional-looking text alongside pixel art graphics. I wanted the nostalgic pixel art aesthetic for the gameplay but modern, readable typography for the UI. Which I didn't realize, in my game dev blissful ingnorance, is a surprisingly difficult thing to manage.
+
+The core issue was that my game used a 320x240 viewport scaled up 4x to 1280x960 for that authentic pixel art look. This made sprites look perfectly crisp, but any smooth fonts became blurry when scaled up from the low resolution.
+
+Here's what I learned about Godot's rendering pipeline:
+
+**The problem**: When you set your project's "Default Texture Filter" to "Nearest" (required for pixel-perfect sprites), it affects everything including fonts. But when you set it to "Linear" (needed for smooth fonts), your pixel art becomes blurry.
+
+**The solution**: I used Godot's SubViewport system to create a dual-resolution rendering approach:
+1. Created a [SubViewport](https://docs.godotengine.org/en/stable/classes/class_subviewport.html) at the full output resolution (1280x960)
+2. Rendered text at high resolution in this viewport
+3. Used a ViewportTexture to display the crisp text in the main low-res scene
+4. Applied different texture filtering to different elements
+
+This technique let me maintain pixel-perfect sprites while achieving crisp, professional typography - the best of both worlds.
+
+### Tilemaps
+
+Learning [TileMapLayers](https://docs.godotengine.org/en/stable/classes/class_subviewport.html) and [TileSets](https://docs.godotengine.org/en/stable/classes/class_tileset.html) was probably the most diffcult and stressful as I needed a way to apply different behavior based off of tile that the player is standing on. A certain type of couch cushion, for example, would launch the character into the air.
+
+### Music
+
+I went back to using [Ableton](https://www.ableton.com/) and [Logic](https://www.apple.com/logic-pro/) for the music production and surprisingly to me, this is where I had the most fun. I worked in a recording studio prior to becoming a software developer but it's been years since I've touched music software and didn't realize how much I missed it till making this game!
+
+### Pixel art
+
+Prior to starting this game jam I had been consuming lots of [Aesprite](https://github.com/aseprite/aseprite) tutorials so it made sense for me to go with pixel art for this game as that what I was actively learning. Animating my daughter as a pixel art character was pure joy and I'm really looking forward to learning more about animation. 
+
+## Triads - A musical memory game
+
+After Ludum Dare, I wanted to explore Godot's control node / UI capabilities more, so I created [Triads](https://volts-alpaca.itch.io/triads) - a musical memory game where players listen to and repeat increasingly complex sequences of notes and chords.
+
+### Game design
+
+The game features three progressive levels:
+- **Level 1**: Single-note sequences (7 rounds)
+- **Level 2**: Two-note chord sequences (4 rounds)  
+- **Level 3**: Three-note chord sequences (3 rounds)
+
+The difficulty progression keeps the learning curve manageable while challenging players' musical memory.
+
+### Technical deep dive
+
+**State management**: I implemented a robust game state system using enums (IDLE, COUNTDOWN, COMPUTER_TURN, PLAYER_TURN, etc.). This taught me the importance of clear state management in game development.
+
+**Audio programming**: This was my first real dive into game audio programming. I built systems for:
+- Dynamic audio playback based on player input
+- Precise timing for musical sequences
+- Polyphonic sound handling (playing multiple notes simultaneously)
+- Audio management with different sound categories
+
+**Creating the audio**
+I create a layered synth sound I enjoyed and then sampled every note, each half step, for a little over an octave in range to have each of the 16 pads to coorespond to a single note. I also had a blast reocrding my own voice and running that through a [vocoder](https://en.wikipedia.org/wiki/Vocoder) as the voice of the synth giving instructions! 
+
+**Multi-note chord recognition**: One of the trickiest challenges was building a system that could detect when a player had correctly played a complete chord. This required validating that all required notes were pressed simultaneously while handling timing windows for human input.
+
+**Cross-platform considerations**: I added platform detection and optimized for both desktop and mobile, learning about the differences in input handling and performance requirements. I have an iPhone and got the game deployed to my iOS device but it was really challenging.  Some of the screenshots wee out of date with the current version of XCode. I got a PR in to fix the Godot docs and hopefully that will get merged to help out iOS folks in the future.
+
+I realized at this point that the game is more more fun to play with multi touch on a phone compared to using a desktop keyboard.
+
+### Key Lessons Learned
+
+1. **Research hardware limitations**: I discovered that some laptops have keyboard limitations (key rollover) that affected gameplay - teaching me to consider hardware constraints in game design.
+
+2. **Progressive difficulty works**: Starting simple and gradually increasing complexity kept players engaged without overwhelming them.
+
+3. **Debugging tools save time**: Adding keyboard shortcuts to jump to any level made testing much more efficient.
+
+4. **Immediate user feedback is crucial**: Visual and audio feedback helps players understand their mistakes and successes instantly.
+
+## Looking Forward
+
+I have started working on a [frogger](https://en.wikipedia.org/wiki/Frogger) clone and this time I am going to learn to create smooth 2D art and hand drawn animations with Procreate.
