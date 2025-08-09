@@ -2,7 +2,7 @@
 title: 'First post'
 description: 'Kick off of my game dev blog'
 pubDate: 'May 25 2025'
-heroImage: '/src/images/post1-featured.webp'
+heroImage: '/post1-featured.webp'
 ---
 
 Hi, this is the start of my brand spanking new game dev blog. I'm starting this blog as an online diary to document my game development progress over time. After trying out SFML, Love2d, and Pico, I have settled on using Godot for now. I'm a senior software engineer doing full stack web development for my day job and I feel like Godot has had the maximum fun factor for me. Fun factor is really important to me with this hobby since last thing I want to do with my life is to spend 100% of my waking hours coding in front of a monitor. I'm spending a lot of time learning graphic design, animation, and getting back into music production, which is perfect. Every chance that I have some free time, a brand new adventure begins.
